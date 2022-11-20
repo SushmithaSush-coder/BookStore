@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-
+using BulkyBook.Models;
 #nullable disable
 
 namespace BookStore.Migrations

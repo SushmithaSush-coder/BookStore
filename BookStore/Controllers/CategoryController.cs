@@ -1,5 +1,6 @@
-﻿using BookStore.Data;
-using BookStore.Models;
+﻿
+using BookStore.DataAccess;
+using BulkyBook.Models;
 using Microsoft.AspNetCore.Mvc;
 
 
