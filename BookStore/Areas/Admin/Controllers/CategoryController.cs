@@ -1,18 +1,17 @@
-﻿
-using BookStore.DataAccess;
+﻿using BookStore.DataAccess;
 using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace BookStore.Controllers
+namespace BookStore.Areas.Admin.Controllers
 {
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
         public CategoryController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork=unitOfWork;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
@@ -25,7 +24,7 @@ namespace BookStore.Controllers
         public IActionResult Create()
         {
 
-           
+
             return View();
         }
         //post
@@ -57,8 +56,8 @@ namespace BookStore.Controllers
             {
                 return NotFound();
             }
-           // var CategoryFromDb = _db.Categories.Find(id);
-             var CategoryFromDb= _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
+            // var CategoryFromDb = _db.Categories.Find(id);
+            var CategoryFromDb = _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
             //   var CategoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
 
             if (CategoryFromDb == null)
