@@ -21,24 +21,39 @@ namespace BulkyBook.DataAccess.Repository
         public Repository(ApplicationDbContext db)
         {
             _db = db;
+         //   _db.Products.Include(u => u.Category).Include(u => u.CoverType);
             this.dbSet=_db.Set<T>();
         }
         public void Add(T entity)
         {
             dbSet.Add(entity);
         }
-
-        public IEnumerable<T> GetAll()
+        //include prop-"category,covertype
+        public IEnumerable<T> GetAll(string? incudeProperties = null)
         {
             IQueryable<T> query = dbSet;
+            if(incudeProperties!= null)
+            {
+                foreach(var incudeProp in incudeProperties.Split(new char[] {','},StringSplitOptions.RemoveEmptyEntries))
+                    {
+                    query = query.Include(incudeProp);
+                }
+            }
             return query.ToList();
         }
 
-        public T GetFirstOrDefault(Expression<Func<T, bool>> filter)
+        public T GetFirstOrDefault(Expression<Func<T, bool>> filter, string? incudeProperties = null)
         {
             IQueryable<T> query = dbSet;
 
             query = query.Where(filter);
+            if (incudeProperties != null)
+            {
+                foreach (var incudeProp in incudeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(incudeProp);
+                }
+            }
 
             return query.FirstOrDefault();
         }
